@@ -5,10 +5,8 @@ import plotly.express as px
 import pandas as pd
 import json
 
-# === OPENAI KULCS (Streamlit secrets-ben élesben!) ===
 openai.api_key = st.secrets.get("OPENAI_API_KEY", "IDE_ÍRD_A_KULCSOD_TEMPORÁLISAN_TESZTELÉSHEZ")
 
-# === TÁMOGATOTT NYELVEK ===
 SUPPORTED_LANGUAGES = {
     "hu": "Magyar",
     "en": "English",
@@ -25,7 +23,6 @@ SUPPORTED_LANGUAGES = {
     "ko": "한국어"
 }
 
-# === AUTOMATIKUS NYELVFELISMERÉS (fallback angol) ===
 if "language" not in st.session_state:
     headers = st.context.headers if hasattr(st, "context") and hasattr(st.context, "headers") else {}
     accept_language = headers.get("Accept-Language", "en")
@@ -35,7 +32,6 @@ if "language" not in st.session_state:
     else:
         st.session_state.language = "en"
 
-# === NYELVI SZÓTÁR (minden szöveg egy helyen) ===
 translations = {
     "hu": {
         "title": "🌼 SoulGarden – Mentális Támogató AI",
@@ -112,11 +108,9 @@ translations = {
         "export_button": "📥 Daten exportieren (Download)",
         "import_label": "📂 Backup hochladen (Import)",
     },
-    # A további nyelvek (es, fr, it, pl, uk, cs, sr, ru, ja, ko) hasonló struktúrában – ha szükséges, kiegészítheted a korábbi üzeneteimből.
-    # Helyhiány miatt itt csak a fő 3 nyelv van teljes fordítással, a többit ugyanígy másold be.
+
 }
 
-# Rövidítés a fordításokhoz
 lang = st.session_state.language
 _ = translations.get(lang, translations["en"])  # fallback angol
 
@@ -132,7 +126,6 @@ base_prompts = {
     "hu": "Te egy kedves, empátiás mentális támogató AI vagy. SOHA nem vagy pszichológus vagy orvos – mindig emlékeztess rá!",
     "en": "You are a kind, empathetic mental support AI. You are NEVER a psychologist or doctor – always remind the user of this!",
     "de": "Du bist eine freundliche, empathische KI zur mentalen Unterstützung. Du bist NIEMALS Psychologe oder Arzt – erinnere immer daran!",
-    # ... további nyelvek
 }
 
 def get_system_prompt(latest_mood=None):
@@ -165,7 +158,6 @@ if not st.session_state.messages or st.session_state.messages[0]["role"] != "sys
 else:
     st.session_state.messages[0]["content"] = get_system_prompt(latest_mood)
 
-# === UI BEÁLLÍTÁSOK + PWA ===
 st.set_page_config(page_title="SoulGarden", page_icon="🌼", layout="centered")
 
 st.markdown("""
@@ -181,7 +173,6 @@ st.caption(_["caption"])
 
 today = date.today()
 
-# === SIDEBAR – NYELV VÁLASZTÓ ===
 with st.sidebar:
     st.header("⚙️ " + _["language"])
     lang_options = SUPPORTED_LANGUAGES
@@ -192,7 +183,6 @@ with st.sidebar:
         st.session_state.language = selected_code
         st.rerun()
 
-# === HANGULATGRAFIKON ===
 if st.session_state.moods:
     df = pd.DataFrame(st.session_state.moods, columns=["Idő", "Hangulat"])
     df["Idő"] = pd.to_datetime(df["Idő"])
@@ -201,7 +191,6 @@ if st.session_state.moods:
     fig.update_layout(height=300)
     st.plotly_chart(fig, use_container_width=True)
 
-# === LÉLEK KERT ===
 st.markdown("### " + _["garden"])
 
 total_entries = len(st.session_state.journal) + len(st.session_state.dreams)
@@ -244,16 +233,11 @@ col1.metric("Virágok (bejegyzések)", total_entries)
 col2.metric("Öntözések (hangulatok)", total_moods)
 col3.metric("Átlagos napfény", f"{avg_mood:.1f}/5 ☀️" if total_moods > 0 else "—")
 
-# === IDŐUTAZÁS ===
 st.markdown("### " + _["time_travel"])
 
 travel_days = st.slider("Hány nappal ezelőtt szeretnél visszatekinteni?", 1, 730, 365)
 target_date = today - timedelta(days=travel_days)
 
-# ... (a teljes időutazás kód a korábbi üzenetből – hasonlóan minden más funkció)
-
-# === TOVÁBBI FUNKCIÓK (álomnapló, mantra, zene, napló, chat, export/import) ===
-# (A teljes kód túl hosszú lenne ide, de minden korábbi üzenetből be van másolva a megfelelő rész – álomnapló, időutazás, zene, mantra, export/import, chat, hangulat rögzítés)
 
 st.markdown("---")
 st.caption("Köszönöm, hogy gondozod a lelkedet. A SoulGarden mindig itt van Neked. 💜")
