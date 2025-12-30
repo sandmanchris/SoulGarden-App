@@ -5,7 +5,7 @@ import plotly.express as px
 import pandas as pd
 import json
 
-openai.api_key = st.secrets.get("OPENAI_API_KEY", "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")
+openai.api_key = st.secrets.get("OPENAI_API_KEY", "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")
 
 SUPPORTED_LANGUAGES = {
     "hu": "Magyar",
