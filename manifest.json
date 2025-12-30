@@ -1,0 +1,28 @@
+{
+  "name": "SoulGarden",
+  "short_name": "SoulGarden",
+  "description": "Személyes mentális jóllét támogató AI hangulatkövetéssel, naplóval és lélek kerttel",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#c4b5fd",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "lifestyle", "productivity"],
+  "lang": "hu",
+  "dir": "ltr",
+  "scope": "/"
+}
